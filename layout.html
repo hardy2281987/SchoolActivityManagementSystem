@@ -1,0 +1,25 @@
+<div>
+    <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true">
+    </asp:ScriptManager>
+    <asp:TextBox ID="txtEmployeeSearch" runat="server"></asp:TextBox>
+    <cc1:AutoCompleteExtender ServiceMethod="SearchEmployees" MinimumPrefixLength="1"
+        CompletionInterval="100" EnableCaching="false" CompletionSetCount="10" TargetControlID="txtEmployeeSearch"
+        OnClientPopulated="Employees_Populated" ID="AutoCompleteExtender1" runat="server"
+        FirstRowSelected="false">
+    </cc1:AutoCompleteExtender>
+</div>
+<div>
+    <script type="text/javascript">
+        function Employees_Populated(sender, e) {
+            var employees = sender.get_completionList().childNodes;
+            var div = "<table>";
+            div += "<tr><th>EmployeeId</th><th>FirstName</th><th>LastName</th><th>City</th><th>Country</th></tr>";
+            for (var i = 0; i < employees.length; i++) {
+ 
+                div += "<tr><td>" + employees[i].innerHTML.split('-')[0] + "</td><td>" + employees[i].innerHTML.split('-')[1] + "</td><td>" + employees[i].innerHTML.split('-')[2] + "</td><td>" + employees[i].innerHTML.split('-')[3] + "</td><td>" + employees[i].innerHTML.split('-')[4] + "</td></tr>";
+            }
+            div += "</table>";
+            sender._completionListElement.innerHTML = div;
+        }
+    </script>
+</div>
